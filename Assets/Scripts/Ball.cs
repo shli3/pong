@@ -5,43 +5,49 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {   
 
-    private int side;
     private bool isUp = true;
     private float UpDown = 1.0f;
 
     [SerializeField]
     private float BallSpeed = 5.5f;
 
-    // Start is called before the first frame update
+    // Ball in the beginning of the round
     void Start()
     {
         
-        side = Random.Range(0,2);
-        
-        //determines if ball goes up or down start of round
+        // 0 is left, 1 is right
+        int side = Random.Range(0,2);
+        Vector3 vector = new Vector3();
+
+        // Determines if ball goes up or down start of round
         if(Random.Range(0,2) == 1){
             isUp = false;
             UpDown = -1.0f;
         }
 
-    }
+        /// <summary>
+        /// The screen is effectively cut into three quadrants for the ball to travel, with certain angles unattainable
+        /// because that would make the ball go too vertical.
+        /// </summary>
+        if(side == 0 && isUp){
+            vector = Quaternion.AngleAxis(Random.Range(110.0f, 180.0f), Vector3.forward) * Vector3.right;
+            GetComponent<Rigidbody2D>().velocity = vector * BallSpeed;
+        }
 
-    void Update()
-    {
-        
-        if(side == 0){
-            //Go left
-            transform.position = new Vector3(transform.position.x + (-1  * Time.deltaTime), transform.position.y + (UpDown * Random.Range(0f, 1.0f) * BallSpeed * Time.deltaTime), transform.position.z);
+        else if(side == 0 && !isUp){
+            vector = Quaternion.AngleAxis(Random.Range(180.0f, 250.0f), Vector3.forward) * Vector3.right;
+            GetComponent<Rigidbody2D>().velocity = vector * BallSpeed;
+        }
+
+        else if(side == 1 && isUp){
+            vector = Quaternion.AngleAxis(Random.Range(0.0f, 70.0f), Vector3.forward) * Vector3.right;
+            GetComponent<Rigidbody2D>().velocity = vector * BallSpeed;
         }
 
         else{
-            //Go right
-            transform.position = new Vector3(transform.position.x + Time.deltaTime, transform.position.y + (UpDown * Random.Range(0f, 1.0f) * BallSpeed * Time.deltaTime), transform.position.z);
+            vector = Quaternion.AngleAxis(Random.Range(290.0f, 360.0f), Vector3.forward) * Vector3.right;
+            GetComponent<Rigidbody2D>().velocity = vector * BallSpeed;
         }
 
-        Debug.Log(transform.position.x);
-        
     }
-
-
 }
