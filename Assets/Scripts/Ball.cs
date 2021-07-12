@@ -7,6 +7,7 @@ public class Ball : MonoBehaviour
 
     private bool isUp = true;
     private float UpDown = 1.0f;
+    Vector3 vector = new Vector3();
 
     [SerializeField]
     private float BallSpeed = 5.5f;
@@ -17,7 +18,6 @@ public class Ball : MonoBehaviour
         
         // 0 is left, 1 is right
         int side = Random.Range(0,2);
-        Vector3 vector = new Vector3();
 
         // Determines if ball goes up or down start of round
         if(Random.Range(0,2) == 1){
@@ -52,6 +52,11 @@ public class Ball : MonoBehaviour
     }
 
     void WallBounce(Collision2D coll){
-        
+        //y = -y
+        if(coll.collider.tag == "Bumper"){
+            vector.y = -vector.y;
+        }
     }
+
+    //x = -x when ball hits paddle
 }
