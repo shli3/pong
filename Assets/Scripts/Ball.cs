@@ -50,4 +50,8 @@ public class Ball : MonoBehaviour
         }
 
     }
+
+    void WallBounce(Collision2D coll){
+        
+    }
 }
