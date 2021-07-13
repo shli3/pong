@@ -51,7 +51,7 @@ public class Ball : MonoBehaviour
 
     }
 
-    void WallBounce(Collision2D coll){
+    void OnCollisionEnter(Collision coll){
         //y = -y
         if(coll.collider.tag == "Bumper"){
             vector.y = -vector.y;
