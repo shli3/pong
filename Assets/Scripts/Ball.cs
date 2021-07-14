@@ -51,12 +51,4 @@ public class Ball : MonoBehaviour
 
     }
 
-    void OnCollisionEnter(Collision coll){
-        //y = -y
-        if(coll.collider.tag == "Bumper"){
-            vector.y = -vector.y;
-        }
-    }
-
-    //x = -x when ball hits paddle
 }
